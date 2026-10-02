@@ -1,124 +1,82 @@
 # ☀️ MeuDia+
 
-Aplicação em desenvolvimento para registro e acompanhamento da rotina
-de crianças em creches e escolas de educação infantil.
+Projeto de aplicativo para acompanhamento da rotina de crianças em
+creches e escolas infantis.
 
-O projeto surgiu com o objetivo de facilitar o registro das atividades
-realizadas pelas professoras e melhorar a comunicação entre escola
-e responsáveis.
+O MeuDia+ está sendo desenvolvido como um projeto de estudo,
+com o objetivo de praticar desenvolvimento de sistemas e criar
+uma solução simples para comunicação entre escola e responsáveis.
 
-## 🎯 Problema
+## 📱 Funcionalidades
 
-Durante a rotina escolar, professoras precisam registrar informações
-de várias crianças, como alimentação, sono, higiene, humor e atividades.
-
-Fazer esses registros individualmente e em formato de texto pode
-consumir bastante tempo.
-
-O MeuDia+ busca simplificar esse processo utilizando registros rápidos,
-checklists e dados estruturados.
-
-## 👥 Perfis do sistema
-
-### 👩‍🏫 MeuDia+ Professor
-- Registro rápido da rotina
+- Registro de entrada e saída
 - Alimentação
 - Sono
 - Higiene
 - Humor
 - Atividades
-- Ocorrências
-- Checklists
-- Mensagens pré-definidas e editáveis
-- Registro para múltiplas crianças
-
-### 👨‍👩‍👧 MeuDia+ Família
-- Acompanhamento da rotina
-- Relatório diário
 - Frequência e faltas
-- Fotos
-- Comunicados
-- Mensagens
-- Assistente virtual Lumi
+- Comunicação com responsáveis
+- Relatório diário
 
-### 🏫 MeuDia+ Gestão
-Planejado para administração de:
-- Turmas
-- Crianças
-- Professores
-- Responsáveis
-- Indicadores
-- Relatórios
-- Configurações da instituição
+## 👩‍🏫 Área da professora
 
-## 💻 Tecnologias utilizadas no protótipo
-
-- HTML5
-- CSS3
-- JavaScript
-- Design responsivo / Mobile First
-- SQL / SQLite para prototipação da estrutura de dados
-
-## ☁️ Arquitetura planejada
-
-- Firebase Authentication
-- Cloud Firestore
-- Firebase Storage
-- Cloud Functions
-- Firebase Cloud Messaging
-
-## 📊 Dados e BI
-
-Os registros são pensados de forma estruturada para permitir
-futuramente a criação de indicadores como:
-
-- Frequência por turma
-- Faltas por período
-- Registros de alimentação
-- Tempo médio de sono
-- Atividades realizadas
-- Ocorrências
-- Relatórios pendentes
-
-Fluxo:
-
-Aplicativo → Banco de Dados → Tratamento → Indicadores → Dashboard
-
-## 🤖 Lumi
-
-A Lumi é a assistente virtual planejada para o MeuDia+.
-
-A proposta é utilizar os dados registrados no sistema para ajudar
-responsáveis e profissionais a consultar informações da rotina da criança.
+A professora pode realizar registros rápidos utilizando botões
+e checklists.
 
 Exemplo:
 
-"Como Maria se alimentou hoje?"
+Almoço:
+- Comeu tudo
+- Comeu bem
+- Comeu pouco
+- Recusou
 
-A resposta deverá ser construída com base nos registros existentes,
-sem inventar informações.
+Atividades:
+- Participou
+- Participou com ajuda
+- Demonstrou interesse
+- Preferiu observar
 
-## 🤖 Uso de Inteligência Artificial no desenvolvimento
+As mensagens podem ser editadas antes de serem registradas.
 
-Este projeto é desenvolvido como parte do meu processo de aprendizagem
-em Análise e Desenvolvimento de Sistemas.
+## 👨‍👩‍👧 Área dos responsáveis
 
-Utilizo ferramentas de IA como apoio para:
+Os responsáveis poderão acompanhar:
 
-- desenvolvimento e revisão de código;
-- estudo de novas implementações;
-- identificação de erros;
-- prototipação;
-- exploração de soluções técnicas.
+- Rotina da criança
+- Alimentação
+- Sono
+- Atividades
+- Fotos
+- Frequência
+- Relatórios
+- Recados da escola
 
-Os requisitos, regras de negócio, fluxos, decisões de interface,
-testes e evolução do produto são definidos e revisados durante
-o desenvolvimento.
+## 💻 Tecnologias
+
+Atualmente estou utilizando:
+
+- HTML
+- CSS
+- JavaScript
+
+Também estou estudando a integração do projeto com banco de dados.
+
+## 🤖 Inteligência Artificial
+
+Utilizo Inteligência Artificial como ferramenta de apoio durante
+o desenvolvimento, principalmente para aprender, criar protótipos,
+entender códigos e encontrar soluções para as funcionalidades
+que estou desenvolvendo.
+
+## 🎓 Objetivo
+
+Este projeto faz parte do meu processo de aprendizagem em
+Análise e Desenvolvimento de Sistemas e está sendo utilizado
+para colocar em prática conhecimentos de programação,
+banco de dados e UX/UI.
 
 ## 🚧 Status
 
 Em desenvolvimento.
-
-O projeto está sendo utilizado para aplicar conhecimentos de
-desenvolvimento web, lógica de programação, banco de dados,
-UX/UI e inteligência artificial.
