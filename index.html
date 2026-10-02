@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeuDia+ | Hotelzinho Pingo de Gente</title>
+<style>
+:root{
+  --yellow:#FFE27A;--blue:#A4DDED;--green:#A7E8BD;--pink:#F6A4C9;
+  --ink:#263244;--muted:#788395;--bg:#F6F8FB;--card:#fff;--line:#E8EDF3;
+  --danger:#FF6E7E;--warning:#FFB45C;--success:#36C98F;--info:#6CBFDF;
+  --shadow:0 14px 38px rgba(38,50,68,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:20px 16px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sun{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#FFD84D;font-size:24px}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px}.logo .m{color:var(--pink)}.logo .d{color:#F0C51B}.logo .p{color:var(--green)}
+.school{font-size:13px;color:var(--muted);padding:10px 12px;border-radius:14px;background:linear-gradient(90deg,#fff8d8,#f3fbff);margin-bottom:18px}
+nav{display:grid;gap:7px}
+nav button{border:0;background:transparent;border-radius:13px;padding:12px 14px;text-align:left;color:#687385;font-weight:700}
+nav button.active{background:#FFF0F6;color:#D95789}
+nav button:hover{background:#F8FAFC}
+.side-footer{position:absolute;bottom:18px;left:16px;right:16px}
+.lumi-mini{padding:12px;border-radius:16px;background:linear-gradient(135deg,#fff5c9,#eef9ff);font-size:12px}
+.main{min-width:0}
+.topbar{height:76px;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:20}
+.topbar h1{font-size:20px;margin:0}.top-actions{display:flex;gap:9px}
+.iconbtn,.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;color:var(--ink);font-weight:700}
+.btn.primary{background:linear-gradient(135deg,#F5A7C9,#E96F9F);border:0;color:#fff}
+.btn.success{background:#E7F8F1;color:#178B5B;border-color:#CDEFE2}
+.content{padding:24px}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;gap:16px}.grid.cols-4{grid-template-columns:repeat(4,1fr)}.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+.card{background:#fff;border:1px solid #EEF1F5;border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.stat small{color:var(--muted)}.stat strong{display:block;font-size:28px;margin-top:6px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:24px 0 12px}.section-head h2{font-size:18px;margin:0}
+.pill{font-size:12px;padding:6px 9px;border-radius:999px;font-weight:800}.pill.green{background:#E6F8F0;color:#198B5D}.pill.yellow{background:#FFF5D8;color:#9A7000}.pill.red{background:#FFE5E8;color:#C33C4D}.pill.blue{background:#E8F5FB;color:#317F9C}
+.teacher-row{display:flex;gap:8px;flex-wrap:wrap}.teacher-chip{display:flex;align-items:center;gap:7px;background:#F8FAFC;padding:7px 10px;border-radius:999px;font-size:12px}.avatar-sm{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#FFE7EF}
+.students{display:grid;gap:10px}
+.student{display:grid;grid-template-columns:44px 1fr auto auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.student .avatar{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#FFE4EE,#FFF3D3);display:grid;place-items:center;font-size:23px}
+.student strong{display:block}.student small{color:var(--muted)}
+.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}.ok{background:var(--success)}.warn{background:var(--warning)}.bad{background:var(--danger)}
+.calendar-wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:16px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.weekday{font-size:11px;color:var(--muted);text-align:center}
+.day{min-height:76px;border:1px solid var(--line);border-radius:14px;padding:8px;background:#fff;position:relative}
+.day .num{font-size:12px;font-weight:800}.day .mark{position:absolute;bottom:8px;left:8px;right:8px;font-size:10px;padding:4px 5px;border-radius:8px;text-align:center}
+.mark.present{background:#E6F8F0;color:#198B5D}.mark.absent{background:#FFE5E8;color:#C33C4D}.mark.justified{background:#FFF3D6;color:#A16A00}.mark.closed{background:#EAF3F8;color:#52748B}
+.detail-list{display:grid;gap:8px}.detail-item{padding:10px 12px;border-radius:14px;background:#F8FAFC;font-size:13px}
+.moodbar{height:16px;border-radius:999px;background:linear-gradient(90deg,#ff7185,#ff9b67 25%,#ffe26a 50%,#a9e69e 75%,#43d49d);margin:18px 0}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.mood{text-align:center;font-size:12px}.face{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;margin:auto auto 5px;font-size:22px}
+.timeline{display:grid;gap:10px}.event{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:11px;border-radius:14px;background:#F9FBFC}.evicon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px}
+.report{background:linear-gradient(180deg,#fff,#FFFEF9)}.report h3{margin-top:0}.report-block{padding:12px 0;border-bottom:1px dashed var(--line)}.report-block:last-child{border-bottom:0}
+.checklist{display:grid;gap:9px}.check{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:13px;background:#F9FBFC}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.photo{aspect-ratio:1.2;border-radius:15px;background:linear-gradient(145deg,#FFF2D7,#EAF8FC);display:grid;place-items:center;font-size:34px;position:relative}.photo input{position:absolute;opacity:0}.photo.sel{outline:3px solid var(--green)}
+.form{display:grid;gap:10px}.form label{font-size:12px;color:var(--muted);font-weight:700}.form input,.form select,.form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#FBFCFD}.form textarea{min-height:90px}
+.lumi-box{display:grid;grid-template-columns:1fr auto;gap:10px}.lumi-answer{padding:14px;border-radius:16px;background:linear-gradient(135deg,#FFF8D9,#F1FAFF);min-height:120px}
+.modal{display:none;position:fixed;inset:0;background:rgba(30,37,49,.38);z-index:50;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.dialog{width:min(560px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.2)}
+.dialog h3{margin-top:0}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}
+.toast{display:none;position:fixed;top:90px;right:24px;background:#263244;color:#fff;padding:11px 14px;border-radius:12px;z-index:70}.toast.show{display:block}
+.mobile-nav{display:none}
+@media(max-width:980px){.grid.cols-4{grid-template-columns:repeat(2,1fr)}.grid.cols-3{grid-template-columns:1fr 1fr}.calendar-wrap{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .app{display:block}.sidebar{display:none}.topbar{height:66px;padding:0 14px}.content{padding:14px 14px 88px}
+  .grid.cols-4,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}.student{grid-template-columns:42px 1fr auto}.student .student-extra{display:none}
+  .mobile-nav{display:grid;position:fixed;bottom:0;left:0;right:0;height:72px;background:#fff;border-top:1px solid var(--line);grid-template-columns:repeat(5,1fr);z-index:40}
+  .mobile-nav button{border:0;background:#fff;color:#7C8798;font-size:11px}.mobile-nav button span{display:block;font-size:20px}.mobile-nav button.active{color:#D95789;font-weight:800}
+  .calendar{gap:5px}.day{min-height:62px;padding:6px}.day .mark{font-size:9px;left:5px;right:5px;bottom:5px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="sun">☀️</div><div class="logo"><span class="m">Meu</span><span class="d">Dia</span><span class="p">+</span></div></div>
+  <div class="school">🏫 Hotelzinho Pingo de Gente</div>
+  <nav>
+    <button class="active" data-page="dashboard">🏠 Painel</button>
+    <button data-page="alunos">👧 Alunos</button>
+    <button data-page="frequencia">📅 Frequência</button>
+    <button data-page="rotina">📝 Rotina</button>
+    <button data-page="relatorios">📄 Relatórios</button>
+    <button data-page="lumi">☀️ Lumi</button>
+  </nav>
+  <div class="side-footer"><div class="lumi-mini"><strong>☀️ Lumi</strong><br>3 crianças ainda têm pendências no relatório de hoje.</div></div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <h1 id="pageTitle">Painel da professora</h1>
+    <div class="top-actions">
+      <button class="iconbtn" onclick="toast('Sem novos avisos')">🔔</button>
+      <button class="btn primary" onclick="openRegister()">+ Novo registro</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <section class="page active" id="dashboard">
+      <div class="grid cols-4">
+        <div class="card stat"><small>Presentes</small><strong>18</strong><span class="pill green">Hoje</span></div>
+        <div class="card stat"><small>Já saíram</small><strong>4</strong><span class="pill blue">Confirmadas</span></div>
+        <div class="card stat"><small>Relatórios prontos</small><strong>11</strong><span class="pill green">61%</span></div>
+        <div class="card stat"><small>Com pendências</small><strong>3</strong><span class="pill yellow">Atenção</span></div>
+      </div>
+
+      <div class="section-head"><h2>Tias de hoje</h2><span class="pill blue">Turma Girassol</span></div>
+      <div class="card teacher-row">
+        <span class="teacher-chip"><span class="avatar-sm">👩🏻</span>Tia Ana • 07h–13h</span>
+        <span class="teacher-chip"><span class="avatar-sm">👩🏽</span>Tia Juliana • 12h–18h</span>
+        <span class="teacher-chip"><span class="avatar-sm">👩🏼</span>Tia Carla • 13h–18h</span>
+      </div>
+
+      <div class="section-head"><h2>Alunos hoje</h2><button class="btn" onclick="go('alunos')">Ver turma</button></div>
+      <div class="students">
+        <div class="student">
+          <div class="avatar">👧🏻</div><div><strong>Maria Luísa</strong><small><span class="status-dot ok"></span>Pronto para saída</small></div>
+          <span class="student-extra pill green">Completo</span><button class="btn success" onclick="openCheckout()">Confirmar saída</button>
+        </div>
+        <div class="student">
+          <div class="avatar">👦🏻</div><div><strong>Arthur</strong><small><span class="status-dot warn"></span>Falta registro do almoço</small></div>
+          <span class="student-extra pill yellow">Pendente</span><button class="btn" onclick="openCheckout('Arthur')">Revisar</button>
+        </div>
+        <div class="student">
+          <div class="avatar">👧🏽</div><div><strong>Helena</strong><small><span class="status-dot bad"></span>Ocorrência a comunicar</small></div>
+          <span class="student-extra pill red">Atenção</span><button class="btn" onclick="openCheckout('Helena')">Revisar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="alunos">
+      <div class="section-head"><h2>Turma Girassol</h2><span class="pill green">18 presentes</span></div>
+      <div class="students" id="studentsList">
+        <div class="student"><div class="avatar">👧🏻</div><div><strong>Maria Luísa</strong><small>Infantil 2 • presente desde 07:42</small></div><button class="btn" onclick="go('rotina')">Abrir rotina</button><button class="btn success" onclick="openCheckout()">Saída</button></div>
+        <div class="student"><div class="avatar">👦🏻</div><div><strong>Arthur</strong><small>Infantil 2 • presente desde 07:55</small></div><button class="btn" onclick="go('frequencia')">Frequência</button><button class="btn">Perfil</button></div>
+        <div class="student"><div class="avatar">👧🏽</div><div><strong>Helena</strong><small>Infantil 2 • presente desde 08:03</small></div><button class="btn" onclick="go('relatorios')">Relatório</button><button class="btn">Perfil</button></div>
+      </div>
+    </section>
+
+    <section class="page" id="frequencia">
+      <div class="section-head"><h2>Frequência • Maria Luísa</h2><div><span class="pill green">88,9% frequência</span></div></div>
+      <div class="calendar-wrap">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><strong>Setembro 2026</strong><span style="color:var(--muted);font-size:12px">18 dias letivos • 16 presenças • 2 faltas</span></div>
+          <div class="calendar">
+            <div class="weekday">SEG</div><div class="weekday">TER</div><div class="weekday">QUA</div><div class="weekday">QUI</div><div class="weekday">SEX</div><div class="weekday">SÁB</div><div class="weekday">DOM</div>
+            <div class="day"><span class="num">31</span></div>
+            <div class="day"><span class="num">1</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">2</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">3</span><span class="mark absent">Falta</span></div>
+            <div class="day"><span class="num">4</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">5</span><span class="mark closed">Fechado</span></div>
+            <div class="day"><span class="num">6</span><span class="mark closed">Fechado</span></div>
+            <div class="day"><span class="num">7</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">8</span><span class="mark justified">Justificada</span></div>
+            <div class="day"><span class="num">9</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">10</span><span class="mark present">Presente</span></div>
+            <div class="day"><span class="num">11</span><span class="mark present">Presente</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Resumo do mês</h3>
+          <div class="detail-list">
+            <div class="detail-item">🟢 16 presenças</div>
+            <div class="detail-item">🔴 2 faltas</div>
+            <div class="detail-item">🟡 1 falta justificada</div>
+            <div class="detail-item">🔵 4 dias sem aula</div>
+            <div class="detail-item">🟣 1 saída antecipada</div>
+          </div>
+          <button class="btn primary" style="width:100%;margin-top:12px" onclick="toast('Ausência informada à escola')">Informar ausência</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="rotina">
+      <div class="grid cols-2">
+        <div class="card">
+          <div class="section-head" style="margin-top:0"><h2>Maria Luísa</h2><span class="pill green">Presente</span></div>
+          <div><strong>Humor atual</strong><div class="moodbar"></div></div>
+          <div class="moods">
+            <div class="mood"><div class="face" style="background:#ffd7dd">☹️</div>Triste</div>
+            <div class="mood"><div class="face" style="background:#ffd6be">😠</div>Raiva</div>
+            <div class="mood"><div class="face" style="background:#fff0a8">😐</div>Calma</div>
+            <div class="mood"><div class="face" style="background:#daf1ca">🙂</div>Ativa</div>
+            <div class="mood"><div class="face" style="background:#bff1d6">😄</div>Alegre</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Registros do dia</h3>
+          <div class="timeline" id="timeline">
+            <div class="event"><div class="evicon" style="background:#FFF4CF">🏫</div><div><strong>Chegada</strong><small>Check-in realizado</small></div><small>07:42</small></div>
+            <div class="event"><div class="evicon" style="background:#E8F7EE">🍌</div><div><strong>Café da manhã</strong><small>Comeu bem</small></div><small>08:20</small></div>
+            <div class="event"><div class="evicon" style="background:#FFE8F1">🎨</div><div><strong>Atividade</strong><small>Pintura com as mãos</small></div><small>09:30</small></div>
+            <div class="event"><div class="evicon" style="background:#EAF6FC">😴</div><div><strong>Sono</strong><small>12:50 às 14:20</small></div><small>1h30</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head"><h2>Fotos do dia</h2><span class="pill blue">Selecione destaques</span></div>
+      <div class="photo-grid">
+        <label class="photo sel">🎨<input type="checkbox" checked></label>
+        <label class="photo sel">🌳<input type="checkbox" checked></label>
+        <label class="photo">📚<input type="checkbox"></label>
+      </div>
+    </section>
+
+    <section class="page" id="relatorios">
+      <div class="grid cols-2">
+        <div class="card">
+          <h3 style="margin-top:0">Antes da saída</h3>
+          <div class="checklist">
+            <div class="check"><span>🍎 Alimentação</span><span class="pill green">Completo</span></div>
+            <div class="check"><span>😴 Sono</span><span class="pill green">Completo</span></div>
+            <div class="check"><span>🧷 Higiene</span><span class="pill green">Completo</span></div>
+            <div class="check"><span>😊 Humor</span><span class="pill green">Completo</span></div>
+            <div class="check"><span>🎨 Atividades</span><span class="pill green">Completo</span></div>
+            <div class="check"><span>⚠️ Ocorrências</span><span class="pill yellow">1 revisada</span></div>
+            <div class="check"><span>📷 Fotos destaque</span><span class="pill blue">2 selecionadas</span></div>
+          </div>
+          <button class="btn primary" style="width:100%;margin-top:14px" onclick="openCheckout()">Confirmar saída e gerar relatório</button>
+        </div>
+
+        <div class="card report">
+          <h3>☀️ O dia da Maria</h3>
+          <div class="report-block">Maria teve um dia alegre e participou bastante das atividades propostas.</div>
+          <div class="report-block">🍎 <strong>Alimentação</strong><br>Comeu bem no café da manhã e no almoço.</div>
+          <div class="report-block">😴 <strong>Sono</strong><br>Dormiu 1h30, de forma tranquila.</div>
+          <div class="report-block">🎨 <strong>Atividades</strong><br>Pintura sensorial e contação de histórias.</div>
+          <div class="report-block">👩‍🏫 <strong>Quem cuidou de mim hoje</strong><br>Tia Ana • Tia Juliana</div>
+          <div class="report-block">💬 <strong>Recado</strong><br>“Maria adorou a atividade de pintura hoje!”</div>
+          <div style="display:flex;gap:8px;margin-top:14px"><button class="btn success" onclick="toast('Responsável recebeu o relatório')">❤️ Amei acompanhar</button><button class="btn" onclick="toast('Resposta registrada')">Como foi a chegada em casa?</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="lumi">
+      <div class="card">
+        <div class="section-head" style="margin-top:0"><h2>☀️ Lumi</h2><span class="pill blue">Assistente MeuDia+</span></div>
+        <div class="lumi-box">
+          <div class="lumi-answer" id="lumiAnswer">
+            Oi! Posso resumir o dia da Maria Luísa, verificar pendências, mostrar faltas no mês ou preparar o relatório semanal.
+          </div>
+          <button class="btn primary" onclick="askLumi()">Perguntar</button>
+        </div>
+        <div class="form" style="margin-top:12px">
+          <label>Digite uma pergunta</label>
+          <input id="lumiInput" placeholder="Ex.: Lumi, como foi o dia da Maria?">
+        </div>
+      </div>
+      <div class="section-head"><h2>Sugestões</h2></div>
+      <div class="grid cols-3">
+        <button class="card" onclick="quickLumi('pendencias')">📝 Ver pendências</button>
+        <button class="card" onclick="quickLumi('semana')">📅 Resumo semanal</button>
+        <button class="card" onclick="quickLumi('faltas')">📊 Frequência e faltas</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="mobile-nav">
+  <button class="active" data-page="dashboard"><span>🏠</span>Painel</button>
+  <button data-page="alunos"><span>👧</span>Alunos</button>
+  <button data-page="frequencia"><span>📅</span>Frequência</button>
+  <button data-page="relatorios"><span>📄</span>Relatório</button>
+  <button data-page="lumi"><span>☀️</span>Lumi</button>
+</div>
+
+<div class="modal" id="registerModal">
+  <div class="dialog">
+    <h3>Novo registro</h3>
+    <div class="form">
+      <label>Tipo</label>
+      <select id="regType"><option>Alimentação</option><option>Sono</option><option>Higiene</option><option>Humor</option><option>Atividade</option><option>Temperatura</option><option>Medicação</option><option>Ocorrência</option></select>
+      <label>Horário</label><input type="time" id="regTime">
+      <label>Observação</label><textarea id="regObs" placeholder="Descreva o registro..."></textarea>
+    </div>
+    <div class="dialog-actions"><button class="btn" onclick="closeModal('registerModal')">Cancelar</button><button class="btn primary" onclick="saveRegister()">Salvar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="checkoutModal">
+  <div class="dialog">
+    <h3>Confirmar saída</h3>
+    <p id="checkoutText">A Lumi verificou os registros de Maria Luísa.</p>
+    <div class="checklist">
+      <div class="check"><span>Registros essenciais</span><span class="pill green">Completos</span></div>
+      <div class="check"><span>Ocorrências importantes</span><span class="pill yellow">1 revisada</span></div>
+      <div class="check"><span>Responsável comunicado</span><span class="pill green">Sim</span></div>
+      <div class="check"><span>Fotos destaque</span><span class="pill blue">2 fotos</span></div>
+    </div>
+    <div class="dialog-actions"><button class="btn" onclick="closeModal('checkoutModal')">Voltar</button><button class="btn primary" onclick="finishCheckout()">Confirmar saída + relatório</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const pages=[...document.querySelectorAll('.page')];
+const navButtons=[...document.querySelectorAll('[data-page]')];
+const titles={dashboard:'Painel da professora',alunos:'Alunos',frequencia:'Frequência',rotina:'Rotina da criança',relatorios:'Relatórios',lumi:'Lumi'};
+function go(id){
+  pages.forEach(p=>p.classList.toggle('active',p.id===id));
+  navButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  document.getElementById('pageTitle').textContent=titles[id]||'MeuDia+';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+navButtons.forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),1800);
+}
+function openRegister(){
+  document.getElementById('regTime').value=new Date().toTimeString().slice(0,5);
+  document.getElementById('registerModal').classList.add('show');
+}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function saveRegister(){
+  const type=document.getElementById('regType').value;
+  const time=document.getElementById('regTime').value||'--:--';
+  const obs=document.getElementById('regObs').value.trim()||'Registro realizado';
+  const icons={'Alimentação':'🍎','Sono':'😴','Higiene':'🧷','Humor':'😊','Atividade':'🎨','Temperatura':'🌡️','Medicação':'💊','Ocorrência':'⚠️'};
+  const el=document.createElement('div');el.className='event';
+  el.innerHTML=`<div class="evicon" style="background:#F4F7FA">${icons[type]||'📝'}</div><div><strong>${type}</strong><small>${obs}</small></div><small>${time}</small>`;
+  document.getElementById('timeline').prepend(el);
+  let regs=JSON.parse(localStorage.getItem('meudia_regs')||'[]');regs.unshift({type,time,obs});localStorage.setItem('meudia_regs',JSON.stringify(regs));
+  closeModal('registerModal');toast('Registro salvo');
+}
+function openCheckout(name='Maria Luísa'){
+  document.getElementById('checkoutText').textContent=`A Lumi verificou os registros de ${name}.`;
+  document.getElementById('checkoutModal').classList.add('show');
+}
+function finishCheckout(){
+  closeModal('checkoutModal');go('relatorios');toast('Saída confirmada e relatório gerado');
+}
+function askLumi(){
+  const q=document.getElementById('lumiInput').value.toLowerCase();
+  let a='Posso verificar os registros do dia, frequência, faltas, pendências e preparar resumos.';
+  if(q.includes('dia')) a='Maria chegou alegre, comeu bem, participou da pintura sensorial e dormiu 1h30. Não há pendências essenciais no relatório.';
+  if(q.includes('falta')||q.includes('frequ')) a='Em setembro, Maria tem 16 presenças, 2 faltas e 1 falta justificada. A frequência atual é de 88,9%.';
+  if(q.includes('pend')) a='Maria está com todos os registros essenciais completos. Há 1 ocorrência já revisada e 2 fotos marcadas como destaque.';
+  if(q.includes('seman')) a='Resumo semanal: 5 dias letivos, 4 presenças, humor predominantemente alegre, média de 1h18 de sono e boa participação nas atividades.';
+  document.getElementById('lumiAnswer').textContent=a;
+}
+function quickLumi(type){
+  const a={
+    pendencias:'3 crianças ainda possuem pendências hoje: Arthur sem almoço, Helena com ocorrência a comunicar e Miguel sem registro de higiene.',
+    semana:'Resumo semanal da Maria: 4 de 5 dias presentes, humor predominantemente alegre, média de 1h18 de sono e participação em 8 atividades.',
+    faltas:'Maria tem 2 faltas neste mês, sendo 1 justificada. Frequência atual: 88,9%.'
+  };
+  document.getElementById('lumiAnswer').textContent=a[type];go('lumi');
+}
+try{
+  const regs=JSON.parse(localStorage.getItem('meudia_regs')||'[]');
+  regs.slice().reverse().forEach(r=>{
+    const el=document.createElement('div');el.className='event';
+    el.innerHTML=`<div class="evicon" style="background:#F4F7FA">📝</div><div><strong>${r.type}</strong><small>${r.obs}</small></div><small>${r.time}</small>`;
+    document.getElementById('timeline').prepend(el);
+  });
+}catch(e){}
+</script>
+</body>
+</html>
