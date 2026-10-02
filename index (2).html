@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MeuDia+ Professoras</title>
+<style>
+:root{--pink:#F6A4C9;--yellow:#FFE27A;--blue:#A4DDED;--green:#A7E8BD;--ink:#293344;--muted:#7d8795;--line:#e9edf2;--bg:#f7f9fb;--ok:#39c98f;--warn:#ffb85f;--bad:#ff7184}
+*{box-sizing:border-box}body{margin:0;background:#edf1f5;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button,input,textarea{font:inherit}.phone{max-width:430px;min-height:100dvh;margin:auto;background:var(--bg);position:relative;box-shadow:0 0 40px #0002}
+header{position:sticky;top:0;z-index:20;background:#fffc;padding:13px 14px 11px;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.head{display:flex;justify-content:space-between;align-items:center}.brand{display:flex;gap:8px;align-items:center}.sun{width:39px;height:39px;border-radius:50%;background:#ffd84d;display:grid;place-items:center;font-size:21px}.logo{font-size:22px;font-weight:900}.logo i{font-style:normal;color:#dd6898}.school{font-size:11px;color:var(--muted);margin-top:6px}
+.page{display:none;padding:14px 14px 98px}.page.active{display:block}.card{background:#fff;border:1px solid #eef1f4;border-radius:19px;padding:14px;box-shadow:0 9px 25px #2632440d}.section{display:flex;justify-content:space-between;align-items:center;margin:17px 2px 9px}.section h3{margin:0;font-size:16px}.pill{font-size:10px;font-weight:800;border-radius:999px;padding:5px 8px}.green{background:#e8f8f1;color:#16895a}.yellow{background:#fff3d8;color:#9c6b00}.red{background:#ffe5e9;color:#bd3b4b}.blue{background:#e8f5fb;color:#337c98}
+.hero{background:linear-gradient(145deg,#fff7d7,#effaff)}.hero h2{font-size:19px;margin:0}.hero p{font-size:11px;color:var(--muted);margin:4px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{text-align:center}.stat strong{display:block;font-size:22px}.stat small{font-size:10px;color:var(--muted)}
+.quickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.quick{border:1px solid var(--line);background:#fff;border-radius:17px;padding:13px 5px;min-height:83px;font-weight:800;font-size:11px;color:var(--ink)}.quick span{display:block;font-size:27px;margin-bottom:5px}
+.students{display:grid;gap:8px}.student{display:grid;grid-template-columns:42px 1fr auto;gap:9px;align-items:center;background:#fff;border:1px solid var(--line);padding:10px;border-radius:15px}.av{width:42px;height:42px;border-radius:13px;background:#fff0f5;display:grid;place-items:center;font-size:22px}.student strong{font-size:12px;display:block}.student small{font-size:10px;color:var(--muted)}.check{width:23px;height:23px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px;font-weight:800}.primary{border:0;background:linear-gradient(135deg,#f4a3c6,#e96e9e);color:#fff}.wide{width:100%}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:75px;background:#fffffff5;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:25}.bottom button{border:0;background:none;color:#7c8796;font-size:10px}.bottom span{display:block;font-size:20px}.bottom .active{color:#db5e90;font-weight:900}
+.modal{display:none;position:fixed;inset:0;background:#1d243052;z-index:50;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{width:min(430px,100%);background:#fff;border-radius:24px 24px 0 0;padding:17px;max-height:88vh;overflow:auto}.handle{width:44px;height:5px;background:#d8dce2;border-radius:99px;margin:0 auto 13px}.sheet h3{margin:0 0 4px}.sub{font-size:11px;color:var(--muted);margin:0 0 13px}
+.options{display:grid;gap:8px}.option{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff;text-align:left}.option input{width:20px;height:20px}.option.sel{border-color:#ef91b6;background:#fff4f8}.extras{display:grid;grid-template-columns:1fr 1fr;gap:7px}.extra{border:1px solid var(--line);border-radius:12px;padding:9px;font-size:11px;background:#fff;text-align:left}.extra.on{background:#edf9f3;border-color:#b9ead5}.label{font-size:11px;font-weight:800;margin:13px 0 7px}.textarea{width:100%;border:1px solid var(--line);border-radius:13px;padding:11px;min-height:75px;resize:vertical}.preview{background:linear-gradient(145deg,#fff8da,#f2fbff);border-radius:14px;padding:11px;font-size:12px;line-height:1.45;margin-top:10px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.studentselect{display:flex;gap:7px;overflow:auto;padding-bottom:3px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:10px}.chip.on{background:#fff0f6;border-color:#ee9abc;color:#c64f80;font-weight:800}
+.log{display:grid;gap:8px}.logitem{padding:11px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:11px}.logitem b{display:block;margin-bottom:3px}
+.toast{display:none;position:fixed;top:76px;left:50%;transform:translateX(-50%);background:#293344;color:#fff;border-radius:99px;padding:10px 13px;font-size:11px;z-index:80}.toast.show{display:block}
+</style>
+</head>
+<body><div class="phone">
+<header><div class="head"><div class="brand"><div class="sun">☀️</div><div class="logo"><i>Meu</i>Dia+</div></div><button class="btn" id="bell">🔔</button></div><div class="school">🏫 Hotelzinho Pingo de Gente • Área da professora</div></header>
+
+<section class="page active" id="inicio">
+<div class="card hero"><h2>Bom dia, Tia Ana! 💛</h2><p>Infantil 2 • Turma Girassol</p><div style="display:flex;gap:6px;margin-top:9px"><span class="pill green">18 presentes</span><span class="pill yellow">3 pendências</span></div></div>
+<div class="section"><h3>Registro rápido</h3><span class="pill blue">Selecione uma rotina</span></div>
+<div class="quickgrid">
+<button class="quick" data-routine="Lanche"><span>🍎</span>Lanche</button>
+<button class="quick" data-routine="Almoço"><span>🍛</span>Almoço</button>
+<button class="quick" data-routine="Sono"><span>😴</span>Sono</button>
+<button class="quick" data-routine="Higiene"><span>🧷</span>Higiene</button>
+<button class="quick" data-routine="Pintura"><span>🎨</span>Pintura</button>
+<button class="quick" data-routine="Atividade"><span>🧩</span>Atividade</button>
+<button class="quick" data-routine="Leitura"><span>📚</span>Leitura</button>
+<button class="quick" data-routine="Humor"><span>😊</span>Humor</button>
+<button class="quick" data-routine="Ocorrência"><span>⚠️</span>Ocorrência</button>
+</div>
+<div class="section"><h3>Turma agora</h3><span class="pill green">18/20</span></div>
+<div class="students">
+<div class="student"><div class="av">👧🏻</div><div><strong>Maria Luísa</strong><small>Registros completos</small></div><span class="pill green">OK</span></div>
+<div class="student"><div class="av">👦🏻</div><div><strong>Arthur</strong><small>Falta registro do almoço</small></div><span class="pill yellow">1</span></div>
+<div class="student"><div class="av">👧🏽</div><div><strong>Helena</strong><small>Ocorrência para revisar</small></div><span class="pill red">!</span></div>
+</div>
+</section>
+
+<section class="page" id="turma">
+<div class="section"><h3>Turma Girassol</h3><span class="pill green">18 presentes</span></div>
+<div class="students">
+<div class="student"><div class="av">👧🏻</div><div><strong>Maria Luísa</strong><small>07:42 • Alegre</small></div><button class="btn child-open">Abrir</button></div>
+<div class="student"><div class="av">👦🏻</div><div><strong>Arthur</strong><small>07:55 • Ativo</small></div><button class="btn child-open">Abrir</button></div>
+<div class="student"><div class="av">👧🏽</div><div><strong>Helena</strong><small>08:03 • Calma</small></div><button class="btn child-open">Abrir</button></div>
+</div>
+</section>
+
+<section class="page" id="registros">
+<div class="section"><h3>Registros de hoje</h3><span class="pill blue" id="count">3 registros</span></div>
+<div class="log" id="log">
+<div class="logitem"><b>🎨 Pintura • Maria Luísa</b>Participou com entusiasmo e explorou os materiais. • 09:34</div>
+<div class="logitem"><b>🍎 Lanche • Turma</b>Comeu bem. • 08:25</div>
+<div class="logitem"><b>😊 Humor • Maria Luísa</b>Alegre. • 08:02</div>
+</div>
+</section>
+
+<section class="page" id="pendencias">
+<div class="section"><h3>Pendências</h3><span class="pill yellow">3 hoje</span></div>
+<div class="students">
+<div class="student"><div class="av">👦🏻</div><div><strong>Arthur</strong><small>Almoço não registrado</small></div><button class="btn primary open-lunch">Registrar</button></div>
+<div class="student"><div class="av">👧🏽</div><div><strong>Helena</strong><small>Ocorrência precisa ser revisada</small></div><button class="btn">Revisar</button></div>
+<div class="student"><div class="av">👦🏽</div><div><strong>Miguel</strong><small>Higiene não registrada</small></div><button class="btn">Registrar</button></div>
+</div>
+</section>
+
+<nav class="bottom">
+<button class="active" data-page="inicio"><span>🏠</span>Início</button>
+<button data-page="turma"><span>👧</span>Turma</button>
+<button data-page="registros"><span>📝</span>Registros</button>
+<button data-page="pendencias"><span>✓</span>Pendências</button>
+</nav>
+
+<div class="modal" id="routineModal"><div class="sheet">
+<div class="handle"></div><h3 id="modalTitle">🍎 Lanche</h3><p class="sub">Registro rápido • escolha as crianças e marque as opções.</p>
+<div class="label">Para quem?</div>
+<div class="studentselect" id="studentSelect">
+<button class="chip on">Maria Luísa</button><button class="chip">Arthur</button><button class="chip">Helena</button><button class="chip">Miguel</button><button class="chip">Selecionar todos</button>
+</div>
+<div class="label" id="mainQuestion">Como se alimentou?</div>
+<div class="options" id="mainOptions"></div>
+<div class="label" id="extraTitle">Complementos</div><div class="extras" id="extras"></div>
+<div class="label">Mensagem para a família</div>
+<textarea class="textarea" id="message"></textarea>
+<div class="preview"><b>Prévia:</b> <span id="previewText">Escolha uma opção para montar a mensagem.</span></div>
+<div class="actions"><button class="btn" id="cancel">Cancelar</button><button class="btn primary" id="save">Salvar registro</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const root=document.querySelector('.phone'), modal=document.getElementById('routineModal'), title=document.getElementById('modalTitle'), main=document.getElementById('mainOptions'), extras=document.getElementById('extras'), q=document.getElementById('mainQuestion'), extraTitle=document.getElementById('extraTitle'), msg=document.getElementById('message'), preview=document.getElementById('previewText');
+const data={
+"Lanche":{icon:"🍎",q:"Como se alimentou?",opts:["Comeu tudo","Comeu bem","Comeu metade","Comeu pouco","Experimentou","Recusou"],extras:["Comeu sozinha","Precisou de auxílio","Pediu mais","Bebeu água","Experimentou alimento novo"]},
+"Almoço":{icon:"🍛",q:"Como se alimentou?",opts:["Comeu tudo","Comeu bem","Comeu metade","Comeu pouco","Experimentou","Recusou"],extras:["Comeu sozinha","Precisou de auxílio","Pediu mais","Bebeu água","Experimentou alimento novo"]},
+"Pintura":{icon:"🎨",q:"Como participou?",opts:["Participou bastante","Participou normalmente","Participou com auxílio","Participou pouco","Preferiu observar","Não quis participar"],extras:["Demonstrou interesse","Interagiu com os colegas","Explorou os materiais","Realizou com autonomia","Precisou de incentivo","Concluiu a atividade"]},
+"Atividade":{icon:"🧩",q:"Como participou?",opts:["Participou bastante","Participou normalmente","Participou com auxílio","Participou pouco","Preferiu observar","Não quis participar"],extras:["Demonstrou interesse","Interagiu com os colegas","Explorou os materiais","Realizou com autonomia","Precisou de incentivo","Concluiu a atividade"]},
+"Leitura":{icon:"📚",q:"Como participou?",opts:["Muito interessada","Participou bem","Acompanhou com auxílio","Participou pouco","Preferiu observar"],extras:["Prestou atenção","Interagiu","Fez perguntas","Comentou a história","Escolheu um livro"]},
+"Sono":{icon:"😴",q:"Como foi o sono?",opts:["Dormiu tranquilamente","Demorou para dormir","Sono leve","Acordou algumas vezes","Não dormiu"],extras:["Dormiu sozinha","Precisou de auxílio","Acordou bem","Acordou chorosa"]},
+"Higiene":{icon:"🧷",q:"O que foi realizado?",opts:["Troca de fralda","Banheiro","Banho","Higiene oral"],extras:["Xixi","Cocô","Sem alterações","Precisou trocar a roupa"]},
+"Humor":{icon:"😊",q:"Como está?",opts:["Triste","Raiva","Calma","Ativa","Alegre"],extras:["Interagiu bem","Mais quieta","Carinhosa","Animada"]},
+"Ocorrência":{icon:"⚠️",q:"Tipo de ocorrência",opts:["Pequeno acidente","Temperatura alterada","Mal-estar","Conflito entre crianças","Outro"],extras:["Família comunicada","Primeiros cuidados realizados","Acompanhamento necessário"]}
+};
+let routine="Lanche", selected="", chosenExtras=[];
+function openRoutine(name){
+ routine=name; const d=data[name]; title.textContent=d.icon+" "+name;q.textContent=d.q;selected="";chosenExtras=[];
+ main.innerHTML=d.opts.map(x=>`<button type="button" class="option" data-value="${x}"><input tabindex="-1" type="radio" name="main"><span>${x}</span></button>`).join("");
+ extras.innerHTML=d.extras.map(x=>`<button type="button" class="extra" data-value="${x}">${x}</button>`).join("");
+ msg.value="";preview.textContent="Escolha uma opção para montar a mensagem.";
+ main.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{main.querySelectorAll('.option').forEach(x=>{x.classList.remove('sel');x.querySelector('input').checked=false});b.classList.add('sel');b.querySelector('input').checked=true;selected=b.dataset.value;compose()}));
+ extras.querySelectorAll('.extra').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('on');chosenExtras=[...extras.querySelectorAll('.extra.on')].map(x=>x.dataset.value);compose()}));
+ modal.classList.add('show');
+}
+function compose(){
+ if(!selected)return;
+ let text=selected+".";
+ if(chosenExtras.length) text+=" "+chosenExtras.join(", ")+".";
+ msg.value=text;preview.textContent=text;
+}
+document.querySelectorAll('.quick').forEach(b=>b.addEventListener('click',()=>openRoutine(b.dataset.routine)));
+document.querySelectorAll('.open-lunch').forEach(b=>b.addEventListener('click',()=>openRoutine("Almoço")));
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{if(b.textContent==="Selecionar todos"){document.querySelectorAll('.chip').forEach(x=>x.classList.add('on'))}else b.classList.toggle('on')}));
+msg.addEventListener('input',()=>preview.textContent=msg.value||"Digite ou selecione uma mensagem.");
+document.getElementById('cancel').addEventListener('click',()=>modal.classList.remove('show'));
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show')});
+document.getElementById('save').addEventListener('click',()=>{
+ const names=[...document.querySelectorAll('.chip.on')].filter(x=>x.textContent!=="Selecionar todos").map(x=>x.textContent);
+ if(!names.length||!msg.value.trim()){toast("Selecione criança e registro");return}
+ const now=new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+ const item=document.createElement('div');item.className='logitem';item.innerHTML=`<b>${data[routine].icon} ${routine} • ${names.length>1?names.length+" crianças":names[0]}</b>${msg.value.trim()} • ${now}`;
+ document.getElementById('log').prepend(item);modal.classList.remove('show');toast("Registro salvo para "+names.length+" criança"+(names.length>1?"s":""));
+});
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1800)}
+document.getElementById('bell').addEventListener('click',()=>toast("3 pendências na turma"));
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===b.dataset.page));document.querySelectorAll('.bottom [data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===b.dataset.page));window.scrollTo({top:0,behavior:'smooth'})}));
+document.querySelectorAll('.child-open').forEach(b=>b.addEventListener('click',()=>openRoutine("Atividade")));
+</script>
+</body></html>
